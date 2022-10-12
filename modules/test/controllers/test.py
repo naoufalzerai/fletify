@@ -1,5 +1,7 @@
 from flet import Text
-def home():
+def home(page):
     return Text("from home")
-def index():
+
+
+def index(page):
     return Text("from index")

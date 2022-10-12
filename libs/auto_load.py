@@ -33,12 +33,12 @@ class fletify:
                 spec.loader.exec_module(c)   
                 if(function is None or function == ""):
                     if(hasattr(c,"index")):
-                        self.page.add(c.index())
+                        self.page.add(c.index(self.page))
                     else:
                         raise Exception("404")
                 else:
                     if(hasattr(c, function)):
-                        self.page.add(getattr(c, function)())
+                        self.page.add(getattr(c, function)(self.page))
                     else:
                         raise Exception("404")
             else:

@@ -12,7 +12,7 @@ from flet import (
 )
 
 
-def template(body):
+def template(body, page):
 
     rail = NavigationRail(
         selected_index=0,
@@ -37,8 +37,7 @@ def template(body):
                 label_content=Text("Settings"),
             ),
         ],
-        on_change=lambda e: print(
-            "Selected destination:", e.control.selected_index),
+        on_change=lambda e: page.go("/test/test"),#print("Selected destination:", e.control.selected_index),
     )
 
     return Row(
