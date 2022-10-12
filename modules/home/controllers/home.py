@@ -1,6 +1,9 @@
+from libs.controller import Controller
 from modules.home.views.login   import login
 from modules.home.views.template import template
 
-def index(page):
-    body = login()
-    return template(body, page)
+class home(Controller):
+
+    def index(self):
+        body = login()
+        return template(body, self.page)
