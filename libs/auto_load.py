@@ -19,13 +19,15 @@ class fletify:
         self.page = page
         self.page.theme = self.config["theme"]   
         self.page.title = self.config["title"]        
+        self.page.route =  self.config["home"]
+        self.page.on_route_change = self.route_change      
         
-        self.route_change(TemplateRoute("/"))
-        self.page.on_route_change = self.route_change
+        self.route_change(TemplateRoute(self.config["home"]))
+
         self.page.update()
 
     def route_change(self, route=[]):
-        self.page.views.clear()
+        # self.page.views.clear()
         
         route_arr = route.route.split("/") if route.route!="/" else self.config["home"].split("/")
         module, controller, function, params = route_arr[1] if len(route_arr)>1 else None, route_arr[2]  if len(route_arr)>2 else None, route_arr[3]  if len(route_arr)>3 else None, route_arr[4:]  if len(route_arr)>4 else None

@@ -7,16 +7,17 @@ from flet import (
     Row,
     Text,
     VerticalDivider,
-    icons,
-    Page,
     AlertDialog,
-    TextButton
+    TextButton,
+    Page,
+    Text,
+    icons,
 )
 
 MENU = [
-"/test/test/favorite",
-"/test/test/bookmark",
-"/"
+    "/test/test/favorite",
+    "/test/test/bookmark",
+    "/home/home"
 ]
 
 
@@ -52,6 +53,7 @@ def template(body, page: Page):
         page.dialog = dlg_modal
         dlg_modal.open = True
         page.update()
+
 
     rail = NavigationRail(
         selected_index=MENU.index(page.route),
