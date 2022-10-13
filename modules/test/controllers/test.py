@@ -10,10 +10,10 @@ class test(Controller):
     def home(self):        
         return template(Text("from test home"), self.page)
 
-    def favorite(self):
+    def scheduler(self):
         print(self.params)
         return template(favorite(self.page), self.page)
 
-    def bookmark(self):
+    def vault(self):
         print(self.params)
         return template(bookmark(), self.page)
