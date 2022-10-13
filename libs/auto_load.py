@@ -3,6 +3,7 @@ import flet
 import importlib
 from flet import Page,View,TemplateRoute
 
+
 class fletify:
 
     def __init__(self,config) -> None:
@@ -13,9 +14,11 @@ class fletify:
         self.page = {}
 
 
+
     def load_main_page(self,page: Page):
         self.page = page
-        # self.page.add(Text(f"Initial route: {self.page.route}"))
+        self.page.theme = self.config["theme"]   
+        self.page.title = self.config["title"]        
         
         self.route_change(TemplateRoute("/"))
         self.page.on_route_change = self.route_change
