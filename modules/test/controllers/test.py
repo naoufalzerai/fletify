@@ -12,7 +12,7 @@ class test(Controller):
 
     def favorite(self):
         print(self.params)
-        return template(favorite(), self.page)
+        return template(favorite(self.page), self.page)
 
     def bookmark(self):
         print(self.params)
