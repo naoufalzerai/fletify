@@ -15,8 +15,8 @@ from flet import (
 )
 
 MENU = [
-    "/test/test/favorite",
-    "/test/test/bookmark",
+    "/test/test/scheduler",
+    "/test/test/vault",
     "/home/home"
 ]
 
@@ -65,14 +65,14 @@ def template(body, page: Page):
         group_alignment=-0.9,
         destinations=[
             NavigationRailDestination(
-                icon=icons.FAVORITE_BORDER, 
-                selected_icon=icons.FAVORITE, 
-                label="First"
+                icon=icons.EVENT_OUTLINED, 
+                selected_icon=icons.EVENT, 
+                label="Sceduler"
             ),
             NavigationRailDestination(
-                icon_content=Icon(icons.BOOKMARK_BORDER),
-                selected_icon_content=Icon(icons.BOOKMARK),
-                label="Second",
+                icon_content=Icon(icons.PASSWORD_OUTLINED),
+                selected_icon_content=Icon(icons.PASSWORD),
+                label="Vault",
             ),
             NavigationRailDestination(
                 icon=icons.SETTINGS_OUTLINED,
