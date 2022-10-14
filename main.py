@@ -14,12 +14,12 @@ theme.page_transitions.windows = "fadeUpwards"
 
 config = {
     "base_path" : os.getcwd(),
-    "view": flet.FLET_APP,
-    # "view":flet.WEB_BROWSER,
+    # "view": flet.FLET_APP,
+    "view":flet.WEB_BROWSER,
     "home":"/test/test/scheduler",
     "theme": theme,
     "title": "test",
-    "database": "",
+    "database": None,
     "migration": True
 }
 

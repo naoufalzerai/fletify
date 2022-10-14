@@ -1,10 +1,10 @@
-from html import entities
 import os,inspect
 import flet
 import importlib
 from flet import Page,View,TemplateRoute
 from libs.uow import UOW
 import glob
+from peewee import SqliteDatabase
 
 class fletify:
 
@@ -67,11 +67,20 @@ class fletify:
             raise Exception("404")     
 
     def run(self):
-        if self.config["migration"]:
+        if self.config["database"] is None:            
+            UOW().set_db(SqliteDatabase('mydb.db', 
+                                pragmas={
+                                'journal_mode': 'wal',
+                                'cache_size': -1024 * 64}
+                            ))
+        else:
+            UOW().set_db(self.config["database"])
+
+        if self.config["migration"]==True:
             self.load_migration()            
         flet.app(target=self.load_main_page, view=self.config["view"])        
 
-    def load_modules(self):       
+    def load_modules(self):
         module_folder = os.path.join(self.config["base_path"],"modules")
         self.modules += [{"name":m,"path":os.path.join(module_folder,m)} for m in os.listdir(module_folder) if os.path.isdir(os.path.join(module_folder,m))]
 
@@ -86,6 +95,6 @@ class fletify:
             entities = [m[1] for m in inspect.getmembers(model, inspect.isclass) if m[1].__module__ == 'entitie']            
 
             try:
-                UOW.db.create_tables(entities)
+                UOW().db.create_tables(entities)
             except Exception as e:
                 print(e)

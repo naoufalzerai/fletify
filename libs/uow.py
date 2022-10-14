@@ -2,9 +2,11 @@ from peewee import *
 from libs.singleton import Singleton
 
 class UOW(metaclass=Singleton):
-    db = SqliteDatabase('app.db', pragmas={
-        'journal_mode': 'wal',
-        'cache_size': -1024 * 64})
+    db = Proxy()
+
+    def set_db(self,db):
+        self.db.initialize(db)
+        pass
 
     def __init__(self):
         print("load db")
@@ -12,4 +14,4 @@ class UOW(metaclass=Singleton):
 
 class BaseModel(Model):
     class Meta:
-        database = UOW.db
+        database = UOW().db
