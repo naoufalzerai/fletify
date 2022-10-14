@@ -35,7 +35,12 @@ def template(body, page: Page):
     dlg_modal = AlertDialog(
         modal=True,
         title=Text("Please confirm"),
-        content=Text("Do you really want to delete all those files?"),
+        content=Column(
+            controls=[
+                Text("Do you really want to delete all those files?"),
+                Text("Do you really want to delete all those files?")
+            ]
+            ),
         actions=[
             TextButton("Yes", on_click=close_dlg),
             TextButton("No", on_click=close_dlg),

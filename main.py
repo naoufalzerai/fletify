@@ -2,7 +2,6 @@ import os
 import libs.auto_load as al
 import flet
 from flet import Theme
-from peewee import *
 
 theme = Theme()
 theme.page_transitions.android = "openUpwards"
@@ -14,8 +13,8 @@ theme.page_transitions.windows = "fadeUpwards"
 
 config = {
     "base_path" : os.getcwd(),
-    # "view": flet.FLET_APP,
-    "view":flet.WEB_BROWSER,
+    "view": flet.FLET_APP,
+    # "view":flet.WEB_BROWSER,
     "home":"/test/test/scheduler",
     "theme": theme,
     "title": "test",

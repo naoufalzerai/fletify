@@ -74,11 +74,12 @@ class fletify:
                                 'cache_size': -1024 * 64}
                             ))
         else:
-            UOW().set_db(self.config["database"])
+            UOW().set_db(self.config["database"])        
+            
+        flet.app(target=self.load_main_page, view=self.config["view"])    
 
         if self.config["migration"]==True:
-            self.load_migration()            
-        flet.app(target=self.load_main_page, view=self.config["view"])        
+            self.load_migration()        
 
     def load_modules(self):
         module_folder = os.path.join(self.config["base_path"],"modules")
