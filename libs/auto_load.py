@@ -1,8 +1,10 @@
-import os
+from html import entities
+import os,inspect
 import flet
 import importlib
 from flet import Page,View,TemplateRoute
-
+from libs.uow import UOW
+import glob
 
 class fletify:
 
@@ -12,8 +14,6 @@ class fletify:
         self.modules = []
         self.routes = []
         self.page = {}
-
-
 
     def load_main_page(self,page: Page):
         self.page = page
@@ -27,8 +27,6 @@ class fletify:
         self.page.update()
 
     def route_change(self, route=[]):
-        # self.page.views.clear()
-        
         route_arr = route.route.split("/") if route.route!="/" else self.config["home"].split("/")
         module, controller, function, params = route_arr[1] if len(route_arr)>1 else None, route_arr[2]  if len(route_arr)>2 else None, route_arr[3]  if len(route_arr)>3 else None, route_arr[4:]  if len(route_arr)>4 else None
      
@@ -45,7 +43,6 @@ class fletify:
 
                 if(function is None or function == ""):
                     if(hasattr(controller_instance, "index")):                        
-                        # self.page.add(controller_instance.index())
                         self.page.views.append(View(
                             "/".join(route_arr),
                             [controller_instance.index()]
@@ -56,7 +53,6 @@ class fletify:
                         raise Exception("404")
                 else:
                     if(hasattr(controller_instance, function)):
-                        # self.page.add(getattr(controller_instance, function)())
                         self.page.views.append(View(
                             "/".join(route_arr),
                             [getattr(controller_instance, function)()]
@@ -68,15 +64,28 @@ class fletify:
             else:
                 raise Exception("404")
         else:
-            raise Exception("404")
-     
+            raise Exception("404")     
 
     def run(self):
-        # self.load_modules()
+        if self.config["migration"]:
+            self.load_migration()            
         flet.app(target=self.load_main_page, view=self.config["view"])        
 
     def load_modules(self):       
         module_folder = os.path.join(self.config["base_path"],"modules")
         self.modules += [{"name":m,"path":os.path.join(module_folder,m)} for m in os.listdir(module_folder) if os.path.isdir(os.path.join(module_folder,m))]
 
-        pass
+    def load_migration(self):
+        directory = "./modules"
+        pathname = directory + "/**/models/*.py"
+        files = glob.glob(pathname, recursive=True)
+        for f in files:
+            spec  = importlib.util.spec_from_file_location("entitie", f)
+            model = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(model)
+            entities = [m[1] for m in inspect.getmembers(model, inspect.isclass) if m[1].__module__ == 'entitie']            
+
+            try:
+                UOW.db.create_tables(entities)
+            except Exception as e:
+                print(e)

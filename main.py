@@ -19,7 +19,8 @@ config = {
     "home":"/test/test/scheduler",
     "theme": theme,
     "title": "test",
-    "database": ""
+    "database": "",
+    "migration": True
 }
 
 al.fletify(config).run()
