@@ -6,9 +6,6 @@ from modules.scheduler.views.scheduler_list import *
 class home(Controller):
 
     def index(self):
-        try:
-            schedulers = list(Scheduler)
-        except Exception as e:
-            print(e)   
-        body = scheduler_list()
+
+        body = scheduler_list(list(Scheduler))
         return template(body, self.page)

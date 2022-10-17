@@ -90,7 +90,7 @@ def template(body, page: Page):
                 label_content=Text("Settings"),
             ),
         ],
-        on_change=lambda e: print(MENU[e.control.selected_index]),
+        on_change=lambda e: auto_redirect(MENU[e.control.selected_index]),
     )
 
     return Row(

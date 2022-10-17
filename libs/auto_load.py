@@ -20,8 +20,8 @@ class fletify:
         self.page.theme = self.config["theme"]   
         self.page.title = self.config["title"]        
         self.page.route =  self.config["home"]
-        self.route_change(TemplateRoute(self.config["home"]))
-        self.page.on_route_change = self.route_change              
+        self.page.on_route_change = self.route_change     
+        self.page.go(self.config["home"])         
         # self.page.update()
 
     def route_change(self, route=[]):
@@ -73,11 +73,12 @@ class fletify:
                             ))
         else:
             UOW().set_db(self.config["database"])        
-            
-        flet.app(target=self.load_main_page, view=self.config["view"])    
 
         if self.config["migration"]==True:
-            self.load_migration()        
+            self.load_migration()           
+                          
+        flet.app(target=self.load_main_page, view=self.config["view"])    
+   
 
     def load_modules(self):
         module_folder = os.path.join(self.config["base_path"],"modules")
