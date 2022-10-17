@@ -15,7 +15,7 @@ from flet import (
 )
 
 MENU = [
-    "/test/test/scheduler",
+    "/scheduler/home",
     "/test/test/vault",
     "/home/home"
 ]
@@ -59,6 +59,11 @@ def template(body, page: Page):
         dlg_modal.open = True
         page.update()
 
+    def auto_redirect(e):
+        try:
+            page.go(e)
+        except Exception(e):
+            print(e)
 
     rail = NavigationRail(
         selected_index=MENU.index(page.route),
@@ -85,7 +90,7 @@ def template(body, page: Page):
                 label_content=Text("Settings"),
             ),
         ],
-        on_change=lambda e: page.go(MENU[e.control.selected_index]),
+        on_change=lambda e: print(MENU[e.control.selected_index]),
     )
 
     return Row(
