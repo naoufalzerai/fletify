@@ -16,7 +16,7 @@ config = {
     "base_path" : os.getcwd(),
     "view": flet.FLET_APP,
     # "view":flet.WEB_BROWSER,
-    "home":"/scheduler/home",
+    "home":"/scheduler/scheduler",
     "theme": theme,
     "title": "test",
     "database": None,

@@ -1,7 +1,23 @@
-from flet import Text, Container, GridView, Container, Text, alignment, colors
+from typing import Callable
+from flet import (
+    Page, 
+    GridView,
+    Container, 
+    Text, 
+    alignment, 
+    colors, 
+    Column,
+    FloatingActionButton, 
+    icons,
+    FloatingActionButton,
+    AlertDialog,
+    TextButton,
+    TextField,
+    Row
+)
 
 
-def scheduler_list(schedulers):
+def scheduler_list(schedulers,page: Page,add: Callable,edit: Callable):
     s_list = GridView(
         expand=1,
         runs_count=5,
@@ -24,5 +40,40 @@ def scheduler_list(schedulers):
                     ink=True,
                     on_click=lambda e: print("Clickable with Ink clicked!"),
             )                                               
-        )        
-    return s_list
+        )
+
+    def save_dlg_add(_e):
+        add("name","cron")        
+        dlg_add.open = False
+        page.update()
+
+
+        
+    def close_dlg_add(e):
+        dlg_add.open = False
+        page.update()
+
+    def open_dlg_add(e):
+        page.dialog = dlg_add
+        dlg_add.open = True
+        page.update()
+
+    dlg_add = AlertDialog(
+        modal=True,
+        title=Text("New cron"),
+        content=Column([
+                Row([Text("Name :"),TextField()]),
+                Row([Text("Cron :"),TextField(width=300)])
+            ]),
+        actions=[
+            TextButton("Save", on_click=save_dlg_add),
+            TextButton("Cancel", on_click=close_dlg_add),
+        ],
+        actions_alignment="end",
+        on_dismiss=lambda e: print("Modal dialog dismissed!"),
+    )
+
+    return Column([
+        FloatingActionButton(icon=icons.CREATE, text="Add",on_click=open_dlg_add),
+        s_list
+    ]) 

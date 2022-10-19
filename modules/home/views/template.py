@@ -1,57 +1,24 @@
 from flet import (
     Column,
-    FloatingActionButton,
     Icon,
     NavigationRail,
     NavigationRailDestination,
     Row,
     Text,
     VerticalDivider,
-    AlertDialog,
-    TextButton,
     Page,
     Text,
     icons,
-    TextField
 )
 
 MENU = [
-    "/scheduler/home",
+    "/scheduler/scheduler",
     "/test/test/vault",
     "/home/home"
 ]
 
 
 def template(body, page: Page):
-
-    def close_dlg(e):
-        dlg_modal.open = False
-        page.update()
-
-    dlg_modal = AlertDialog(
-        modal=True,
-        title=Text("New cron"),
-        content=Column([
-                Row([Text("Name :"),TextField()]),
-                Row([Text("Cron :"),TextField(width=300)])
-            ]),
-        actions=[
-            TextButton("Save", on_click=close_dlg),
-            TextButton("Cancel", on_click=close_dlg),
-        ],
-        actions_alignment="end",
-        on_dismiss=lambda e: print("Modal dialog dismissed!"),
-    )
-
-    def open_dlg(e):
-        page.dialog = dlg
-        dlg.open = True
-        page.update()
-
-    def open_dlg_modal(e):
-        page.dialog = dlg_modal
-        dlg_modal.open = True
-        page.update()
 
     def auto_redirect(e):
         try:
@@ -65,7 +32,6 @@ def template(body, page: Page):
         # extended=True,
         min_width=100,
         min_extended_width=400,
-        leading=FloatingActionButton(icon=icons.CREATE, text="Add",on_click=open_dlg_modal),
         group_alignment=-0.9,
         destinations=[
             NavigationRailDestination(
@@ -94,5 +60,5 @@ def template(body, page: Page):
                 Column([body], alignment="start", expand=True),
             ],
             expand=True,
-        )
+    )
     

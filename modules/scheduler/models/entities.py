@@ -2,12 +2,12 @@ from libs.uow import BaseModel
 from peewee import *
 
 class Scheduler(BaseModel):
-    name = CharField()
-    description = TextField()
-    date = DateTimeField()
-    cron = CharField()
-    status = IntegerField()
+    name = CharField(null=True)
+    description = TextField(null=True)
+    date = DateTimeField(null=True)
+    cron = CharField(null=True)
+    status = IntegerField(null=True)
 
 class Vault(BaseModel):
-    name = CharField()
-    secret =CharField()
+    name = CharField(null=True)
+    secret =CharField(null=True)

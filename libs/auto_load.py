@@ -1,7 +1,7 @@
 import os,inspect
 import flet
 import importlib
-from flet import Page,View,TemplateRoute
+from flet import Page,View
 from libs.uow import UOW
 import glob
 from peewee import SqliteDatabase
