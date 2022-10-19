@@ -3,8 +3,10 @@ from peewee import *
 
 class Scheduler(BaseModel):
     name = CharField()
-    date = CharField()
+    description = TextField()
+    date = DateTimeField()
     cron = CharField()
+    status = IntegerField()
 
 class Vault(BaseModel):
     name = CharField()

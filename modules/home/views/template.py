@@ -12,6 +12,7 @@ from flet import (
     Page,
     Text,
     icons,
+    TextField
 )
 
 MENU = [
@@ -23,27 +24,20 @@ MENU = [
 
 def template(body, page: Page):
 
-
-    dlg = AlertDialog(
-        title=Text("Hello, you!"), on_dismiss=lambda e: print("Dialog dismissed!")
-    )
-
     def close_dlg(e):
         dlg_modal.open = False
         page.update()
 
     dlg_modal = AlertDialog(
         modal=True,
-        title=Text("Please confirm"),
-        content=Column(
-            controls=[
-                Text("Do you really want to delete all those files?"),
-                Text("Do you really want to delete all those files?")
-            ]
-            ),
+        title=Text("New cron"),
+        content=Column([
+                Row([Text("Name :"),TextField()]),
+                Row([Text("Cron :"),TextField(width=300)])
+            ]),
         actions=[
-            TextButton("Yes", on_click=close_dlg),
-            TextButton("No", on_click=close_dlg),
+            TextButton("Save", on_click=close_dlg),
+            TextButton("Cancel", on_click=close_dlg),
         ],
         actions_alignment="end",
         on_dismiss=lambda e: print("Modal dialog dismissed!"),

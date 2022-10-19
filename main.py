@@ -6,11 +6,11 @@ from flet import Theme
 print("start app")
 
 theme = Theme()
-theme.page_transitions.android = "openUpwards"
+theme.page_transitions.android = "cupertino"
 theme.page_transitions.ios = "cupertino"
-theme.page_transitions.macos = "fadeUpwards"
-theme.page_transitions.linux = "fadeUpwards"
-theme.page_transitions.windows = "fadeUpwards"
+theme.page_transitions.macos = "cupertino"
+theme.page_transitions.linux = "cupertino"
+theme.page_transitions.windows = "cupertino"
 
 config = {
     "base_path" : os.getcwd(),
