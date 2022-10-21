@@ -5,25 +5,31 @@ from flet import (
     AlertDialog,
     TextButton,
     TextField,
-    Row,
-    ListView,
     UserControl
 )
 
 class scheduler_add(UserControl):
     def __init__(self,save_dlg_add,close_dlg_add):
         super().__init__()
-        self.nameInput = TextField()
-        self.cronInput = TextField()
+        self.nameInput = TextField(label="Name")
+        self.cronInput = TextField(label="Cron")
+        self.descriptionInput =TextField(
+            label="Description",
+            multiline=True,
+            min_lines=3,
+        )
+
         self.save_dlg_add = save_dlg_add
         self.close_dlg_add = close_dlg_add
         self.dlg = AlertDialog(
             modal=True,
-            title=Text("New cron"),
+            title=Text("New cron "),
             content=Column([
-                    Row([Text("Name :"),self.nameInput]),
-                    Row([Text("Cron :"),self.cronInput])
-                ]),
+                    self.nameInput,
+                    self.cronInput,
+                    self.descriptionInput,
+                ],
+                expand=False),
             actions=[
                 TextButton("Save", on_click=self.save_dlg_add),                
                 TextButton("Cancel", on_click=self.close_dlg_add),

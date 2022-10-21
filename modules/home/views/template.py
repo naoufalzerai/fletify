@@ -13,7 +13,7 @@ from flet import (
 
 MENU = [
     "/scheduler/scheduler",
-    "/test/test/vault",
+    "/scheduler/scheduler/vault",
     "/home/home"
 ]
 
@@ -56,9 +56,9 @@ def template(body, page: Page):
     return Row(
             [
                 rail,
-                VerticalDivider(width=1),
-                Column([body], alignment="start", expand=True),
+                Column([body], expand=True, scroll="auto"),
             ],
             expand=True,
+            
     )
     

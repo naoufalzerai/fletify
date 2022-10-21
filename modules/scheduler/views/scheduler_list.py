@@ -9,16 +9,18 @@ from flet import (
 )
 
 class scheduler_list(UserControl):
-    def __init__(self,list):
+    def __init__(self,list,on_select):
         super().__init__()
         self.list = list
+        self.on_select = on_select
+
         self.s_list = GridView(
             expand=1,
             runs_count=5,
             max_extent=150,
             child_aspect_ratio=1.0,
             spacing=5,
-            run_spacing=5,
+            run_spacing=5            
         )
         self.update_list()
 
@@ -39,7 +41,7 @@ class scheduler_list(UserControl):
                             height=150,
                             border_radius=10,
                             ink=True,
-                            on_click=lambda e: print("Clickable with Ink clicked!"),
+                            on_click=lambda e: self.on_select(e),
                     )                                               
                 )
         if list is not None:                

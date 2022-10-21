@@ -7,6 +7,7 @@ from flet import (
     icons,
     FloatingActionButton,
     Row,
+    Container,
     ListView,
     UserControl
 )
@@ -26,7 +27,7 @@ class scheduler_view(UserControl):
         self.add = add
         self.edit = edit
 
-        self.s_list = scheduler_list(self.schedulers())     
+        self.s_list = scheduler_list(self.schedulers(),self.on_select)     
         self.dlg_add = scheduler_add(self.save_dlg_add,self.close_dlg_add)   
 
 
@@ -40,7 +41,9 @@ class scheduler_view(UserControl):
     def close_dlg_add(self,e):
         self.dlg_add.toggle()
         self.page.update()
-
+    
+    def on_select(self,e):
+        print(e.content)
 
     def build(self):
 
@@ -53,9 +56,10 @@ class scheduler_view(UserControl):
         
         for i in range(0, 60):
             log_list.controls.append(Text(f"Line {i}"))
-
+            
         return Column([
-            FloatingActionButton(icon=icons.CREATE, text="Add",on_click=open_dlg_add),
-            self.s_list,
-            Row([log_list])
-        ]) 
+                                    FloatingActionButton(icon=icons.CREATE, text="Add",on_click=open_dlg_add),
+                                    Row([log_list],height=300),
+                                    self.s_list,
+                                ]
+                        ) 
