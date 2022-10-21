@@ -1,16 +1,20 @@
 from libs.controller import Controller
 from modules.home.views.template import template
 from modules.scheduler.models.entities import Scheduler
-from modules.scheduler.views.scheduler_list import *
+from modules.scheduler.views.scheduler_view import scheduler_view
+from modules.scheduler.views.scheduler_view import *
 
 class scheduler(Controller):
 
     def index(self):
-        def add(name,cron):
-            s = Scheduler(name=name,cron=cron)
+        def add(s):
             s.save()
             
         def edit(e):
             pass
-        body = scheduler_list(list(Scheduler),self.page,add,edit)
+
+        def schedulers():
+            return list(Scheduler)
+            
+        body = scheduler_view(self.page,schedulers,add,edit)
         return template(body, self.page)
