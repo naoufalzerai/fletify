@@ -34,6 +34,8 @@ class scheduler_add(UserControl):
 
     def toggle(self):
         self.dlg.open = not self.dlg.open
+        if self.dlg.page is not None:
+            self.dlg.update()
 
 
     def build(self):
