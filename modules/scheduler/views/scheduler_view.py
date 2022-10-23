@@ -1,3 +1,5 @@
+from enum import auto
+from tkinter import E
 from typing import Callable
 from flet import (
     Page, 
@@ -9,7 +11,8 @@ from flet import (
     Row,
     Container,
     ListView,
-    UserControl
+    UserControl,
+    colors
 )
 
 from modules.scheduler.models.entities import Scheduler
@@ -28,38 +31,31 @@ class scheduler_view(UserControl):
         self.edit = edit
 
         self.s_list = scheduler_list(self.schedulers(),self.on_select)     
-        self.dlg_add = scheduler_add(self.save_dlg_add,self.close_dlg_add)   
+        self.s_add = scheduler_add(self.save_s_add)   
 
 
-    def save_dlg_add(self,e):
-        s = Scheduler(name=self.dlg_add.nameInput.value,cron=self.dlg_add.cronInput.value)
+    def save_s_add(self,e):
+        s = Scheduler(name=self.s_add.nameInput.value,cron=self.s_add.cronInput.value)
         self.add(s)
         self.s_list.update_list(self.schedulers())
-        self.dlg_add.toggle()
         self.page.update()
         
-    def close_dlg_add(self,e):
-        self.dlg_add.toggle()
-        self.page.update()
     
     def on_select(self,e):
         print(e.content)
 
     def build(self):
-
-        def open_dlg_add(e):
-            self.page.dialog = self.dlg_add
-            self.dlg_add.toggle()
-            self.page.update()
         
         log_list = ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
         
         for i in range(0, 60):
             log_list.controls.append(Text(f"Line {i}"))
             
-        return Column([
-                                    FloatingActionButton(icon=icons.CREATE, text="Add",on_click=open_dlg_add),
-                                    Row([log_list],height=300),
-                                    self.s_list,
-                                ]
-                        ) 
+        return Column(
+                    controls=[
+                        Container(expand=2, content= self.s_add),
+                        Container(expand=3, content= self.s_list),
+                        Container(expand=1, content= log_list),
+                    ],
+                    alignment="start"
+                ) 

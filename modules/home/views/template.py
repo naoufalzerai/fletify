@@ -5,6 +5,7 @@ from flet import (
     NavigationRailDestination,
     Row,
     Text,
+    Container,
     VerticalDivider,
     Page,
     Text,
@@ -56,7 +57,7 @@ def template(body, page: Page):
     return Row(
             [
                 rail,
-                Column([body], expand=True, scroll="auto"),
+                Container(body,expand=True),
             ],
             expand=True,
             

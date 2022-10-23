@@ -1,11 +1,13 @@
 from flet import (
-    Page, 
     GridView,
     Container, 
-    Text, 
-    alignment, 
     colors, 
-    UserControl
+    UserControl,
+    TextButton,
+    ButtonStyle
+)
+from flet.buttons import (
+    CountinuosRectangleBorder
 )
 
 class scheduler_list(UserControl):
@@ -20,7 +22,7 @@ class scheduler_list(UserControl):
             max_extent=150,
             child_aspect_ratio=1.0,
             spacing=5,
-            run_spacing=5            
+            run_spacing=5                   
         )
         self.update_list()
 
@@ -32,17 +34,17 @@ class scheduler_list(UserControl):
         for s in self.list:
             self.s_list.controls.append(
                     Container(
-                            content=Text(f"{s.name}\n {s.date}\n {s.cron}"),
-                            margin=10,
-                            padding=10,
-                            alignment=alignment.center,
-                            bgcolor=colors.CYAN_200,
-                            width=150,
-                            height=150,
-                            border_radius=10,
-                            ink=True,
-                            on_click=lambda e: self.on_select(e),
-                    )                                               
+                        content=TextButton(
+                                f"{s.name}\n {s.date}\n {s.cron}",
+                                style=ButtonStyle(
+                                    shape=CountinuosRectangleBorder(radius=30),    
+                                    padding=0,
+                                    color= colors.WHITE,    
+                                    bgcolor=colors.CYAN_200                                                    
+                                ),
+                            ),
+                        margin=5
+                    )                                 
                 )
         if list is not None:                
             self.update()

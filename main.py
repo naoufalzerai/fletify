@@ -2,6 +2,7 @@ import os
 import libs.auto_load as al
 import flet
 from flet import Theme
+from peewee import *
 
 print("start app")
 
@@ -12,14 +13,19 @@ theme.page_transitions.macos = "cupertino"
 theme.page_transitions.linux = "cupertino"
 theme.page_transitions.windows = "cupertino"
 
+db = SqliteDatabase('../mydb.db', 
+                                pragmas={
+                                'journal_mode': 'wal',
+                                'cache_size': -1024 * 64}
+                    )
+
 config = {
     "base_path" : os.getcwd(),
     "view": flet.FLET_APP,
-    # "view":flet.WEB_BROWSER,
     "home":"/scheduler/scheduler",
     "theme": theme,
     "title": "test",
-    "database": None,
+    "database": db,
     "migration": True
 }
 
